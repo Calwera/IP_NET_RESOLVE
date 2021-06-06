@@ -1,33 +1,108 @@
 #include "converter.h"
+#include <iostream> //testing
 Converter::Converter(std::string addres)
 {
-    ip_in_binary = new std::vector<std::string>;
     ocktet_cutter(addres);
 }
-void ocktet_cutter(std::string *addres)
+void Converter::ocktet_cutter(std::string addres)
 {
     std::string ocktet;
-    for (auto add : *addres)
+    for (auto add : addres)
     {
-        if (add != '.')
+        if (add != '.' && add != '\0')
             ocktet += add;
         else
         {
-            (*ip_in_binary).push_back(decimal_to_binary(std::stoi(ocktet)));
+            decimal_to_binary(std::stoi(ocktet));
             ocktet = "";
         }
-
-        //czyta po znaku trzeba zamienic na inta!
     }
+    decimal_to_binary(std::stoi(ocktet));
 }
-std::vector<string> *sub_mask_resolver(int);
-std::string decimal_to_binary(int ip_decimal)
+std::vector<std::string> *Converter::sub_mask_resolver(int cos)
 {
-    std::string ip_binary;
+
+    return nullptr;
+}
+void Converter::decimal_to_binary(int ip_decimal)
+{
+    std::cout << ip_decimal << std::endl;
+    int ocktet_counter{8};
+    std::string ip_binary{};
     while (ip_decimal > 0)
     {
-        ip_binary += ip_decimal % 2;
+        if (ip_decimal % 2 == 0)
+            ip_binary.insert(0, "0");
+        else
+            ip_binary.insert(0, "1");
+
         ip_decimal /= 2;
+        ocktet_counter--;
     }
-    return ip_binary;
+    if (ocktet_counter != 0) //inserting 0 to fill ocktet
+        while (ocktet_counter > 0)
+        {
+            ip_binary.insert(0, "0");
+            ocktet_counter--;
+        }
+
+    for (auto vec : ip_binary)
+        std::cout << ip_binary << std::endl;
+    ip_in_binary.push_back(ip_binary);
+}
+std::vector<std::string> Converter::get_ip()
+{
+    return ip_in_binary;
+}
+std::string Converter::binary_to_decimal()
+{
+    std::string ip_decimal;
+    int counter{1};
+    std::string temp;
+    for (auto vec : ip_in_binary)
+    {
+        temp += vec;
+        counter++;
+
+        if (counter == 8)
+        {
+            std:bin_ocktet_int(temp);
+            ip_decimal += 
+            ip_decimal += ".";
+        }
+        else if (counter == 16)
+        {
+            ip_decimal += bin_ocktet_int(temp);
+            ip_decimal += ".";
+        }
+        else if (counter == 24)
+        {
+            ip_decimal += bin_ocktet_int(temp);
+            ip_decimal += ".";
+        }
+        else if (counter == 32)
+        {
+            ip_decimal += bin_ocktet_int(temp);
+        }
+    }
+   
+    return ip_decimal;
+}
+std::string Converter::bin_ocktet_int(std::string ocktet)
+{
+    std::string num = ocktet;
+    int dec_value = 0;
+
+    // Initializing base value to 1, i.e 2^0
+    int base = 1;
+
+    int len = num.length();
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (num[i] == '1')
+            dec_value += base;
+        base = base * 2;
+    }
+
+    return std::to_string(dec_value);
 }

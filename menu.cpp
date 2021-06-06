@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "converter.h"
 void Menu::welcome()
 {
     cout << "==========================================" << endl;
@@ -14,10 +15,19 @@ bool Menu::create_menu()
     cout << "4 <- Exit the program!" << endl;
     cout << "Please choose what You want to do: ";
     cin >> choice;
+
     switch (choice)
     {
     case '1':
+    {
+        Converter Test("192.168.11.1");
+
+        for (auto vec : Test.get_ip())
+            cout << vec;
+        cout << "\n"
+             << Test.binary_to_decimal() << endl;
         break;
+    }
     case '2':
         break;
     case '3':
