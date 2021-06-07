@@ -20,12 +20,13 @@ bool Menu::create_menu()
     {
     case '1':
     {
-        Converter Test("192.168.11.1");
+
+        /* Converter Test("192.168.11.1");
 
         for (auto vec : Test.get_ip())
             cout << vec;
         cout << "\n"
-             << Test.binary_to_decimal() << endl;
+             << Test.binary_to_decimal() << endl;*/
         break;
     }
     case '2':
@@ -41,4 +42,12 @@ bool Menu::create_menu()
         break;
     }
     return true;
+}
+string Menu::print_give_ip()
+{
+    string ip_addres;
+
+    cout << "Please type IP: ";
+
+    return ip_addres;
 }

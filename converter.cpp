@@ -26,7 +26,7 @@ std::vector<std::string> *Converter::sub_mask_resolver(int cos)
 }
 void Converter::decimal_to_binary(int ip_decimal)
 {
-    std::cout << ip_decimal << std::endl;
+
     int ocktet_counter{8};
     std::string ip_binary{};
     while (ip_decimal > 0)
@@ -46,8 +46,6 @@ void Converter::decimal_to_binary(int ip_decimal)
             ocktet_counter--;
         }
 
-    for (auto vec : ip_binary)
-        std::cout << ip_binary << std::endl;
     ip_in_binary.push_back(ip_binary);
 }
 std::vector<std::string> Converter::get_ip()
@@ -56,36 +54,20 @@ std::vector<std::string> Converter::get_ip()
 }
 std::string Converter::binary_to_decimal()
 {
+
     std::string ip_decimal;
-    int counter{1};
     std::string temp;
     for (auto vec : ip_in_binary)
     {
         temp += vec;
-        counter++;
-
-        if (counter == 8)
-        {
-            std:bin_ocktet_int(temp);
-            ip_decimal += 
-            ip_decimal += ".";
-        }
-        else if (counter == 16)
+        if (temp.size() == 8)
         {
             ip_decimal += bin_ocktet_int(temp);
             ip_decimal += ".";
-        }
-        else if (counter == 24)
-        {
-            ip_decimal += bin_ocktet_int(temp);
-            ip_decimal += ".";
-        }
-        else if (counter == 32)
-        {
-            ip_decimal += bin_ocktet_int(temp);
+            temp = "";
         }
     }
-   
+    ip_decimal.pop_back(); //erase last
     return ip_decimal;
 }
 std::string Converter::bin_ocktet_int(std::string ocktet)
