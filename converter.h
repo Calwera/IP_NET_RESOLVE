@@ -7,15 +7,16 @@ class Converter
 {
 private:
     void ocktet_cutter(std::string);
-    std::vector<std::string> *sub_mask_resolver(int);
     void decimal_to_binary(int);
     std::vector<std::string> ip_in_binary;
-    std::vector<std::string> *sub_mask;
+    std::vector<std::string> sub_mask;
     std::string bin_ocktet_int(std::string);
+    void subnet_mask_to_bin(int);
 
 public:
-    Converter(std::string);
+    Converter(std::string, int);
     std::vector<std::string> get_ip();
     std::string binary_to_decimal();
+    std::vector<std::string> get_mask();
 };
 #endif

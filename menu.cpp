@@ -21,12 +21,13 @@ bool Menu::create_menu()
     case '1':
     {
 
-        /* Converter Test("192.168.11.1");
+        Converter Test(print_give_ip(), print_give_mask());
 
         for (auto vec : Test.get_ip())
             cout << vec;
         cout << "\n"
-             << Test.binary_to_decimal() << endl;*/
+             << Test.binary_to_decimal() << endl;
+
         break;
     }
     case '2':
@@ -46,8 +47,60 @@ bool Menu::create_menu()
 string Menu::print_give_ip()
 {
     string ip_addres;
+    int condition{1}; // ocktet counter from 1 to 4.
+    cout << "Please type IP: " << endl;
+    do
+    {
+        string tmp_ockt;
 
-    cout << "Please type IP: ";
-
+        cout << condition << " ocktet: ";
+        cin >> tmp_ockt;
+        bool good_value{true};
+        for (auto val : tmp_ockt)
+        {
+            if (val <= 47 || val > 57) // ASCII to only consider num values
+            {
+                cout << "invalid ocktet please try again!" << endl;
+                good_value = false;
+            }
+        }
+        if (good_value)
+        {
+            ip_addres += tmp_ockt;
+            ip_addres += '.';
+            condition++;
+        }
+    } while (condition < 5);
+    ip_addres.pop_back(); // erase last dot
     return ip_addres;
+}
+int Menu::print_give_mask()
+{
+    int sub_mask{};
+    bool cond{true};
+    while (cond)
+    {
+        cout << "Please type Subnet mask in CIDR notation (Classless Inter-Domain Routing): " << endl;
+        cin >> sub_mask;
+        while (1)
+        {
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "You have entered wrong input" << endl;
+                cout << "Please type Subnet mask in CIDR notation (Classless Inter-Domain Routing): " << endl;
+                cin >> sub_mask;
+            }
+            if (!cin.fail())
+                break;
+        }
+
+        cout << sub_mask << endl;
+        if (sub_mask > 30 || sub_mask <= 0)
+            cout << "Bad mask number try again" << endl;
+        else
+            cond = false;
+    }
+    return sub_mask;
 }
