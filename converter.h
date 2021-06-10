@@ -14,9 +14,9 @@ private:
     void subnet_mask_to_bin(int);
 
 public:
-    Converter(std::string, int);
+    Converter(int, std::string);
     std::vector<std::string> get_ip();
-    std::string binary_to_decimal();
+    std::string binary_to_decimal(std::vector<std::string> ip);
     std::vector<std::string> get_mask();
 };
 #endif

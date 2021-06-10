@@ -2,6 +2,8 @@
 #define MENU__
 #include <iostream>
 #include <limits>
+#include "converter.h"
+#include "ip_calc.h"
 using namespace std;
 class Menu
 {

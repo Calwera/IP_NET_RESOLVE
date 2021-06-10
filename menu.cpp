@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "converter.h"
+
 void Menu::welcome()
 {
     cout << "==========================================" << endl;
@@ -9,10 +9,10 @@ void Menu::welcome()
 bool Menu::create_menu()
 {
     char choice{};
-    cout << "1 <- Resolve basic network addreses (1 host, broadcast, etc)" << endl;
-    cout << "2 <- Calculate number of subnets networks perspective" << endl;
-    cout << "3 <- Calculate number of subnets host perspective" << endl;
-    cout << "4 <- Exit the program!" << endl;
+    cout << "1 <--- Resolve basic network addreses (1 host, broadcast, etc)" << endl;
+    cout << "2 <--- Calculate number of subnets networks perspective" << endl;
+    cout << "3 <--- Calculate number of subnets host perspective" << endl;
+    cout << "4 <--- Exit the program!" << endl;
     cout << "Please choose what You want to do: ";
     cin >> choice;
 
@@ -20,14 +20,19 @@ bool Menu::create_menu()
     {
     case '1':
     {
+        int mask{};
+        Converter Test(mask = print_give_mask(), print_give_ip());
 
-        Converter Test(print_give_ip(), print_give_mask());
-
-        for (auto vec : Test.get_ip())
-            cout << vec;
-        cout << "\n"
-             << Test.binary_to_decimal() << endl;
-
+        Ip_calc ip(Test.get_ip(), Test.get_mask());
+        cout << "For ip address: " << Test.binary_to_decimal(Test.get_ip()) << "/" << mask << endl;
+        cout << "Network address: "
+             << Test.binary_to_decimal(ip.get_net_add()) << endl;
+        cout << "First host address: "
+             << Test.binary_to_decimal(ip.get_first_host()) << endl;
+        cout << "Last Host address: "
+             << Test.binary_to_decimal(ip.get_last_host()) << endl;
+        cout << "Broadcast address: "
+             << Test.binary_to_decimal(ip.get_broadcast()) << endl;
         break;
     }
     case '2':
@@ -96,7 +101,6 @@ int Menu::print_give_mask()
                 break;
         }
 
-        cout << sub_mask << endl;
         if (sub_mask > 30 || sub_mask <= 0)
             cout << "Bad mask number try again" << endl;
         else

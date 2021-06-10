@@ -1,9 +1,9 @@
 #include "converter.h"
 #include <iostream> //testing
-Converter::Converter(std::string addres, int mask)
+Converter::Converter(int mask, std::string addres)
 {
-    ocktet_cutter(addres);
     subnet_mask_to_bin(mask);
+    ocktet_cutter(addres);
 }
 void Converter::ocktet_cutter(std::string addres)
 {
@@ -49,12 +49,12 @@ std::vector<std::string> Converter::get_ip()
 {
     return ip_in_binary;
 }
-std::string Converter::binary_to_decimal()
+std::string Converter::binary_to_decimal(std::vector<std::string> ip)
 {
 
     std::string ip_decimal;
     std::string temp;
-    for (auto vec : ip_in_binary)
+    for (auto vec : ip)
     {
         temp += vec;
         if (temp.size() == 8)
@@ -89,7 +89,7 @@ void Converter::subnet_mask_to_bin(int mask)
 {
     int tmp_mask = mask;
     std::string temp;
-    for (int i = 1; i < 25; i++)
+    for (int i = 1; i < 33; i++)
     {
         if (tmp_mask < i)
             temp += '0';
