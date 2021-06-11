@@ -45,7 +45,7 @@ void Converter::decimal_to_binary(int ip_decimal)
 
     ip_in_binary.push_back(ip_binary);
 }
-std::vector<std::string> Converter::get_ip()
+std::vector<std::string> &Converter::get_ip()
 {
     return ip_in_binary;
 }
@@ -102,7 +102,7 @@ void Converter::subnet_mask_to_bin(int mask)
         }
     }
 }
-std::vector<std::string> Converter::get_mask()
+std::vector<std::string> &Converter::get_mask()
 {
     return sub_mask;
 }

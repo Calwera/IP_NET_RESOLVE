@@ -21,22 +21,30 @@ bool Menu::create_menu()
     case '1':
     {
         int mask{};
-        Converter Test(mask = print_give_mask(), print_give_ip());
+        Converter ip_resolve(mask = print_give_mask(), print_give_ip());
 
-        Ip_calc ip(Test.get_ip(), Test.get_mask());
-        cout << "For ip address: " << Test.binary_to_decimal(Test.get_ip()) << "/" << mask << endl;
+        Ip_calc ip(ip_resolve.get_ip(), ip_resolve.get_mask());
+        cout << "For ip address: " << ip_resolve.binary_to_decimal(ip_resolve.get_ip()) << "/" << mask << endl;
         cout << "Network address: "
-             << Test.binary_to_decimal(ip.get_net_add()) << endl;
+             << ip_resolve.binary_to_decimal(ip.get_net_add()) << endl;
         cout << "First host address: "
-             << Test.binary_to_decimal(ip.get_first_host()) << endl;
+             << ip_resolve.binary_to_decimal(ip.get_first_host()) << endl;
         cout << "Last Host address: "
-             << Test.binary_to_decimal(ip.get_last_host()) << endl;
+             << ip_resolve.binary_to_decimal(ip.get_last_host()) << endl;
         cout << "Broadcast address: "
-             << Test.binary_to_decimal(ip.get_broadcast()) << endl;
+             << ip_resolve.binary_to_decimal(ip.get_broadcast()) << endl;
         break;
     }
     case '2':
+    {
+        int mask{};
+        Converter ip_resolve(mask = print_give_mask(), print_give_ip());
+        Ip_calc net_to_sub(ip_resolve.get_ip(), ip_resolve.get_mask(), get_num_net());
+        // if(net_to_sub.possible_to_sub())
+        // net_to_sub.subnet();
+        cout << net_to_sub.possible_to_sub() << endl;
         break;
+    }
     case '3':
         break;
     case '4':
@@ -107,4 +115,25 @@ int Menu::print_give_mask()
             cond = false;
     }
     return sub_mask;
+}
+int Menu::get_num_net()
+{
+    int num_networks{};
+    cout << "Please type number of networks: " << endl;
+    cin >> num_networks;
+    while (1)
+    {
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "You have entered wrong character" << endl;
+            cout << "Please type number of networks: " << endl;
+            cin >> num_networks;
+        }
+        if (!cin.fail())
+            break;
+    }
+
+    return num_networks;
 }

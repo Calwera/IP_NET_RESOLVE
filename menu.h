@@ -13,5 +13,6 @@ public:
     void welcome();
     string print_give_ip();
     int print_give_mask();
+    int get_num_net();
 };
 #endif

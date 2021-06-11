@@ -15,8 +15,8 @@ private:
 
 public:
     Converter(int, std::string);
-    std::vector<std::string> get_ip();
+    std::vector<std::string> &get_ip();
     std::string binary_to_decimal(std::vector<std::string> ip);
-    std::vector<std::string> get_mask();
+    std::vector<std::string> &get_mask();
 };
 #endif
