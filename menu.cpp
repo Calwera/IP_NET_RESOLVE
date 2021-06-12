@@ -10,8 +10,8 @@ bool Menu::create_menu()
 {
     char choice{};
     cout << "1 <--- Resolve basic network addreses (1 host, broadcast, etc)" << endl;
-    cout << "2 <--- Calculate number of subnets networks perspective" << endl;
-    cout << "3 <--- Calculate number of subnets host perspective" << endl;
+    cout << "2 <--- Calculate number of subnets from networks perspective" << endl;
+    cout << "3 <--- Calculate number of subnets from host perspective" << endl;
     cout << "4 <--- Exit the program!" << endl;
     cout << "Please choose what You want to do: ";
     cin >> choice;
@@ -40,9 +40,18 @@ bool Menu::create_menu()
         int mask{};
         Converter ip_resolve(mask = print_give_mask(), print_give_ip());
         Ip_calc net_to_sub(ip_resolve.get_ip(), ip_resolve.get_mask(), get_num_net());
-        // if(net_to_sub.possible_to_sub())
-        // net_to_sub.subnet();
-        cout << net_to_sub.possible_to_sub() << endl;
+        if (net_to_sub.possible_to_sub())
+        {
+            net_to_sub.subnet(); //zmienamy maske;
+
+            cout << "You should use mask: " << ip_resolve.binary_to_decimal(net_to_sub.mask_binary) << " in CIDR " << ip_resolve.mask_to_cidr(net_to_sub.mask_binary) << endl;
+        }
+
+        else
+        {
+            cout << "subneting cannot be done... " << endl;
+        }
+
         break;
     }
     case '3':

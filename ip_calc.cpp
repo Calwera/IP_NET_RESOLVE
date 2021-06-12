@@ -82,8 +82,24 @@ bool Ip_calc::possible_to_sub()
     }
     return false;
 }
-std::vector<std::string> Ip_calc::subnet()
+void Ip_calc::subnet()
 {
-    std::vector<std::string> ss;
-    return ss;
+    int numb_bits_move{}, tmp{};
+    for (int i = 1; tmp <= net_numb; i++)
+    {
+        tmp = (int)pow(2, i);
+        numb_bits_move = i - 1;
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if ((mask_binary.at(i)).at(j) == '0' && numb_bits_move != 0)
+            {
+                mask_binary.at(i).at(j) = '1';
+                numb_bits_move--;
+            }
+        }
+    }
 }

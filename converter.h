@@ -18,5 +18,6 @@ public:
     std::vector<std::string> &get_ip();
     std::string binary_to_decimal(std::vector<std::string> ip);
     std::vector<std::string> &get_mask();
+    int mask_to_cidr(std::vector<std::string> &mask);
 };
 #endif

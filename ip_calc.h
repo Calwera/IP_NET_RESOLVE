@@ -16,6 +16,6 @@ public:
     std::vector<std::string> get_last_host();
     std::vector<std::string> get_broadcast();
     bool possible_to_sub();
-    std::vector<std::string> subnet();
+    void subnet();
 };
 #endif

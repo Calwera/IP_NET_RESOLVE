@@ -82,7 +82,6 @@ std::string Converter::bin_ocktet_int(std::string ocktet)
             dec_value += base;
         base = base * 2;
     }
-
     return std::to_string(dec_value);
 }
 void Converter::subnet_mask_to_bin(int mask)
@@ -105,4 +104,17 @@ void Converter::subnet_mask_to_bin(int mask)
 std::vector<std::string> &Converter::get_mask()
 {
     return sub_mask;
+}
+int Converter::mask_to_cidr(std::vector<std::string> &mask)
+{
+    int maskint{};
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if ((mask.at(i)).at(j) == '1')
+                maskint++;
+        }
+    }
+    return maskint;
 }
